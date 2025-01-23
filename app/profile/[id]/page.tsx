@@ -22,6 +22,7 @@ export default async function ProfilePage({params}: ProfilePageProps) {
         <div>
             <h1>Profile</h1>
             <p>{id}</p>
+            <h2>{profile}</h2>
         </div>
     )
 }
