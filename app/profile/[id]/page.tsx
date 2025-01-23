@@ -17,12 +17,11 @@ export default async function ProfilePage({params}: ProfilePageProps) {
     }
     const profile = await res.json();
     
-    
 
     return (
         <div>
-            {profile.user}
-
+            <h1>Profile</h1>
+            <p>{id}</p>
         </div>
     )
 }
