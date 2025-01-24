@@ -1,28 +1,42 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // ✅ Import authOptions
+import { notFound } from "next/navigation";
+import { CreatorProfile } from "@/components/profile/creator-profile";
+import { FanProfile } from "@/components/profile/fan-profile";
 
 interface ProfilePageProps {
-    params: Promise<{id: string}>
+  params: { id: string };
 }
 
-export default async function ProfilePage({params}: ProfilePageProps) {
-    const {id} = await params;
+export default async function ProfilePage({ params }: ProfilePageProps) {
+  const { id } = await params;
 
-    if(!id){
-        return <div>Not found</div>
+  if (!id) {
+    notFound();
+  }
+
+  // ✅ Fetch session data on the server
+  const session = await getServerSession(authOptions);
+  const sessionUserId = session?.user?.id;
+
+  try {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/profile/${id}`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      notFound();
     }
 
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/profile/${id}`);
-    if(res.ok){
-        const {user} = await res.json();
-        return <div>{user.username}</div>
-    }
-    const profile = await res.json();
-    
+    const { user } = await res.json();
 
-    return (
-        <div>
-            <h1>Profile</h1>
-            <p>{id}</p>
-            <h2>{profile}</h2>
-        </div>
-    )
+    return user.role === "CREATOR" && user.id === sessionUserId ? (
+      <CreatorProfile user={user} />
+    ) : (
+      <FanProfile user={user} />
+    );
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    notFound();
+  }
 }

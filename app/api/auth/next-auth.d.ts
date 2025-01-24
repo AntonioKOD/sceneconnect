@@ -1,29 +1,18 @@
-import { DefaultSession, DefaultUser } from 'next-auth';
+import { DefaultSession, DefaultUser } from "next-auth";
 
-declare module 'next-auth' {
-  /**
-   * Extended `Session` interface to include additional user properties like `id` and `username`.
-   */
+declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
-      id: string; // Unique user ID from your database
-      username?: string | null; // Optional username
-    } & DefaultSession['user']; // Includes `name`, `email`, and `image`
+      id: string; // User's unique ID from database
+    } & DefaultSession["user"]; // Includes `name`, `email`, `image`
   }
 
-  /**
-   * Extended `User` interface to include custom properties like `username`.
-   */
   interface User extends DefaultUser {
-    id: string; // Unique user ID from your database
-    username?: string | null; // Optional username for users
+    id: string; // User's unique ID from database
   }
 
-  /**
-   * (Optional) Extended `Profile` interface for OAuth-specific properties.
-   */
   interface Profile {
     id: string; // OAuth provider's unique user ID
-    login?: string; // OAuth provider's username (e.g., GitHub login)
+    login?: string; // Optional username for OAuth providers (e.g., GitHub)
   }
 }

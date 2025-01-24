@@ -19,7 +19,7 @@ const schema = z.object({
       message: "Contain at least one special character.",
     })
     .transform((value) => value.trim()),
-    username: z.string().min(3).transform((value) => value.trim()),
+    name: z.string().min(3).transform((value) => value.trim()),
 });
 
 export default function SignupPage(){
@@ -29,7 +29,7 @@ export default function SignupPage(){
         defaultValues: {
             email: "",
             password: "",
-            username: "",
+            name: "",
         }
     });
     const handleSignup = async (values: z.infer<typeof schema>) => {
@@ -54,7 +54,7 @@ export default function SignupPage(){
             <h1 className='text-2xl font-bold mb-6 text-gray-800'>Sign Up</h1>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(handleSignup)} className='space-y-4'>
-                    <FormField control={form.control} name='username'
+                    <FormField control={form.control} name='name'
                     render={({field})=> (
                         <FormItem>
                             <FormLabel className='text-gray-700'>Username</FormLabel>

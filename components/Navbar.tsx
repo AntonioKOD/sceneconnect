@@ -1,30 +1,30 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Menu, User } from 'lucide-react'
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, User } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { signOut} from "next-auth/react"
-import { Session } from "next-auth"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import SearchBar from "./SearchBar";
 
 const NAV_ITEMS = [
   { name: "Home", href: "/" },
   { name: "Explore", href: "/explore" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
-]
-interface NavbarProps {
-  session: Session | null
-}
-export function Navbar({session}: NavbarProps) {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const pathname = usePathname()
-  const userId = session?.user?.id || ""
+];
 
+export function Navbar() {
+  const { data: session } = useSession();
+  const [isOpen, setIsOpen] = React.useState(false);
+  const pathname = usePathname();
+  const userId = session?.user?.id || "";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -32,9 +32,7 @@ export function Navbar({session}: NavbarProps) {
         {/* Desktop Navigation */}
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="hidden font-bold sm:inline-block">
-              SceneMatch
-            </span>
+            <span className="hidden font-bold sm:inline-block">SceneMatch</span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {NAV_ITEMS.map((item) => (
@@ -58,13 +56,23 @@ export function Navbar({session}: NavbarProps) {
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="pr-0">
-            <MobileLink href="/" pathname={pathname} className="flex items-center" onOpenChange={setIsOpen}>
+            <MobileLink
+              href="/"
+              pathname={pathname}
+              className="flex items-center"
+              onOpenChange={setIsOpen}
+            >
               <span className="font-bold">SceneMatch</span>
             </MobileLink>
             <div className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
               <div className="flex flex-col space-y-3">
                 {NAV_ITEMS.map((item) => (
-                  <MobileLink key={item.href} href={item.href} pathname={pathname} onOpenChange={setIsOpen}>
+                  <MobileLink
+                    key={item.href}
+                    href={item.href}
+                    pathname={pathname}
+                    onOpenChange={setIsOpen}
+                  >
                     {item.name}
                   </MobileLink>
                 ))}
@@ -76,14 +84,20 @@ export function Navbar({session}: NavbarProps) {
         {/* Right Side Actions */}
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
-            {/* Search functionality can go here if needed */}
+            {/* Search functionality */}
+            <SearchBar/>
           </div>
           {session ? (
             <nav className="flex items-center">
               <Button variant="ghost" className="mr-2" asChild>
-                <Link href={`/profile/${userId}`}><User className="h-5 w-5" /></Link>
+                <Link href={`/profile/${userId}`}>
+                  <User className="h-5 w-5" />
+                </Link>
               </Button>
-              <Button type="button" onClick={() => signOut({ callbackUrl: "/" })}>
+              <Button
+                type="button"
+                onClick={() => signOut({ callbackUrl: "/" })}
+              >
                 Sign out
               </Button>
             </nav>
@@ -100,11 +114,19 @@ export function Navbar({session}: NavbarProps) {
         </div>
       </div>
     </header>
-  )
+  );
 }
 
 // Desktop Navigation Link
-function NavLink({ href, pathname, children }: { href: string; pathname: string; children: React.ReactNode }) {
+function NavLink({
+  href,
+  pathname,
+  children,
+}: {
+  href: string;
+  pathname: string;
+  children: React.ReactNode;
+}) {
   return (
     <Link
       href={href}
@@ -115,18 +137,24 @@ function NavLink({ href, pathname, children }: { href: string; pathname: string;
     >
       {children}
     </Link>
-  )
+  );
 }
 
 // Mobile Navigation Link
 interface MobileLinkProps extends React.PropsWithChildren {
-  href: string
-  pathname: string
-  onOpenChange?: (open: boolean) => void
-  className?: string
+  href: string;
+  pathname: string;
+  onOpenChange?: (open: boolean) => void;
+  className?: string;
 }
 
-function MobileLink({ href, pathname, onOpenChange, className, children }: MobileLinkProps) {
+function MobileLink({
+  href,
+  pathname,
+  onOpenChange,
+  className,
+  children,
+}: MobileLinkProps) {
   return (
     <Link
       href={href}
@@ -139,5 +167,5 @@ function MobileLink({ href, pathname, onOpenChange, className, children }: Mobil
     >
       {children}
     </Link>
-  )
+  );
 }
