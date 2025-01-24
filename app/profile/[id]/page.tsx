@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // ✅ Import authOptions
+import { authOptions } from "@/lib/auth"; // ✅ Import authOptions
 import { notFound } from "next/navigation";
 import { CreatorProfile } from "@/components/profile/creator-profile";
 import { FanProfile } from "@/components/profile/fan-profile";
