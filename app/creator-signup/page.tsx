@@ -27,9 +27,9 @@ export default function SignupPage(){
     const form = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
         defaultValues: {
-            email: "",
+            email: "".toLowerCase(),
             password: "",
-            name: "",
+            name: "".toLowerCase(),
         }
     });
     const handleSignup = async (values: z.infer<typeof schema>) => {

@@ -21,7 +21,7 @@ export default function LoginPage() {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      identifier: '',
+      identifier: ''.toLowerCase(),
       password: "",
 
 
