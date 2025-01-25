@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import SessionProviderWrapper from "@/components/SessionProviderWrapper";
-import { Navbar } from "@/components/Navbar";
 import {Toaster} from '@/components/ui/toaster'
-
 
 
 const geistSans = Geist({
@@ -34,7 +32,6 @@ export default async function RootLayout({
       >
          
         <SessionProviderWrapper>
-        <Navbar/>
         <Toaster/>
         {children}
         </SessionProviderWrapper>

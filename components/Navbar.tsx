@@ -24,6 +24,9 @@ export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
   const pathname = usePathname();
   const userId = session?.user?.id || "";
+  const userEmail = session?.user?.email || '';
+  
+  
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -84,7 +87,9 @@ export function Navbar() {
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
             {/* Search functionality */}
+            {userId && (
             <SearchBar/>
+            )}
           </div>
           {session ? (
             <nav className="flex items-center">
@@ -109,6 +114,11 @@ export function Navbar() {
                 <Link href="/signup">Sign up</Link>
               </Button>
             </nav>
+          )}
+          {userEmail === 'antonio_kodheli@icloud.com' && (
+            <Button>
+              <Link href={'/admin'}>View Dashboard</Link>
+            </Button>
           )}
         </div>
       </div>

@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { CreatorShowcase } from "@/components/Creator-Showcase"
 import { Features } from "@/components/Features"
 import { Footer } from "@/components/Footer"
+import sceneMatch from '@/public/newscene.png'
 
 export default function Home() {
   return (
@@ -12,17 +13,17 @@ export default function Home() {
       <main className="flex-grow">
         {/* Hero Section */}
         <section className="relative flex flex-col items-center justify-center text-center py-28 md:py-40">
-          <Image src="/hero-background.jpg" alt="SceneConnect Hero" fill className="object-cover" priority />
+          <Image src={sceneMatch} alt="SceneMatch Hero" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-black/60"></div>
           <div className="relative z-10 text-white max-w-3xl px-4">
-            <h1 className="text-4xl md:text-6xl font-extrabold mb-4">SceneConnect</h1>
+            <h1 className="text-4xl md:text-6xl font-extrabold mb-4">SceneMatch</h1>
             <p className="text-lg md:text-xl mb-8">Where Your Passions Come to Life</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button size="lg" asChild>
                 <Link href="/creator-signup">Craft Your Scene</Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/fan-signup">Join as a Fan</Link>
+                <Link href="/signup">Join as a Fan</Link>
               </Button>
             </div>
           </div>
@@ -60,7 +61,7 @@ export default function Home() {
               </CardContent>
               <CardFooter>
                 <Button className="w-full" size="lg" asChild>
-                  <Link href="/fan-signup">Start Exploring</Link>
+                  <Link href="/signup">Start Exploring</Link>
                 </Button>
               </CardFooter>
             </Card>
