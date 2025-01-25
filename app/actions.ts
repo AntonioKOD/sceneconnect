@@ -275,3 +275,14 @@ export async function createScene(formData: FormData): Promise<void> {
       throw new Error("Failed to fetch pledges.");
     }
   }
+
+  export async function setProfilePicture(userName: string, profileImage: string){
+    await prisma.user.update({
+      where: {name: userName},
+      data: {
+        profileImage
+      }
+    })
+  }
+
+  

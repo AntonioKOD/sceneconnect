@@ -2,27 +2,31 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import creator1 from '@/public/pexels-george-milton-6953873.jpg'
+import creator2 from '@/public/pexels-maikkleinert-3576258.jpg'
+import creator3 from '@/public/pexels-mutecevvil-20447502.jpg'
+import creator4 from '@/public/pexels-nerdcinema-19329522.jpg'
 
 const creators = [
   {
     name: "Emma Johnson",
     description: "Travel vlogger exploring hidden gems around the world",
-    image: "/creators/emma-johnson.jpg",
+    image: creator3,
   },
   {
     name: "Alex Chen",
     description: "Tech enthusiast sharing the latest gadget reviews",
-    image: "/creators/alex-chen.jpg",
+    image: creator2,
   },
   {
     name: "Sophia Rodriguez",
     description: "Fitness trainer specializing in home workouts",
-    image: "/creators/sophia-rodriguez.jpg",
+    image: creator1,
   },
   {
-    name: "Marcus Taylor",
+    name: "Maya Taylor",
     description: "Indie musician creating original songs and covers",
-    image: "/creators/marcus-taylor.jpg",
+    image: creator4,
   },
 ]
 
