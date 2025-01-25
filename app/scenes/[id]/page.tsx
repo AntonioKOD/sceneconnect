@@ -21,6 +21,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { CalendarIcon, ThumbsUpIcon, VideoIcon } from "lucide-react"
+import { CldVideoPlayer } from 'next-cloudinary';
+import 'next-cloudinary/dist/cld-video-player.css';
 
 enum SceneStatus {
   Draft = "IDEA",
@@ -164,6 +166,11 @@ const {toast} = useToast()
 
   return (
     <Card className="max-w-2xl mx-auto mt-8">
+        <CldVideoPlayer
+        width="1920"
+        height="1080"
+        src={scene.videoUrl || ""}
+      />
       <CardHeader>
         <div className="flex justify-between items-start">
           <div>

@@ -6,7 +6,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { createScene } from "@/app/actions"; // Ensure this function is properly exported
+import { createScene } from "@/app/actions";
+
+import { CldUploadWidget, CldVideoPlayer } from "next-cloudinary";
+import React, { useState } from "react";
+
 
 // Enum for Scene Status
 enum SceneStatus {
@@ -23,6 +27,17 @@ interface CreateSceneProps {
 
 // Functional component for creating a scene
 export default function CreateScene({ creatorId }: CreateSceneProps) {
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+
+  // Handle the video upload
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleUpload = (result: any) => {
+    const secureUrl = result?.info?.secure_url;
+    if (secureUrl) {
+      setVideoUrl(secureUrl);
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -31,6 +46,7 @@ export default function CreateScene({ creatorId }: CreateSceneProps) {
       <CardContent>
         <form action={createScene} className="space-y-4">
           <input type="hidden" name="creatorId" value={creatorId} />
+          <input type="hidden" name="videoUrl" value={videoUrl ?? ""} />
 
           {/* Title Input */}
           <div>
@@ -73,10 +89,23 @@ export default function CreateScene({ creatorId }: CreateSceneProps) {
             <Input id="nicheTags" name="nicheTags" placeholder="Comma-separated tags" />
           </div>
 
-          {/* Video URL Input */}
+          {/* Video Upload Button */}
           <div>
-            <Label htmlFor="videoUrl">Video URL</Label>
-            <Input id="videoUrl" name="videoUrl" type="url" placeholder="https://example.com/video" />
+            <CldUploadWidget
+              uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
+              onSuccess={handleUpload}
+            >
+              {({open}) => {
+                return <Button onClick={() => open()}>Upload Video</Button>;
+              }}
+            </CldUploadWidget>
+            {videoUrl && (
+               <CldVideoPlayer
+                      width="1920"
+                      height="1080"
+                      src={videoUrl || ""}
+                    />
+            )}
           </div>
 
           {/* Submit Button */}
