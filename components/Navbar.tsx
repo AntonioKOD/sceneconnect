@@ -15,9 +15,8 @@ import SearchBar from "./SearchBar";
 
 const NAV_ITEMS = [
   { name: "Home", href: "/" },
-  { name: "Explore", href: "/explore" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
+  { name: "Explore", href: "/scenes" },
+  { name: "Feed", href: "/feed" },
 ];
 
 export function Navbar() {
