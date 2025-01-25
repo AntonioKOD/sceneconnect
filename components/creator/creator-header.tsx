@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Twitter, Instagram, Youtube } from "lucide-react";
+import { Twitter, Instagram} from "lucide-react";
 import Image from "next/image";
 import { subscribeToCreator, isSubscriber, unSubscribe } from "@/app/actions";
 import { useSession } from "next-auth/react";
@@ -91,17 +91,7 @@ export function CreatorHeader({ creator }: CreatorHeaderProps) {
                 </a>
               </Button>
             )}
-            {creator.onlyfans && (
-              <Button variant="outline" size="icon" asChild>
-                <a
-                  href={creator.onlyfans}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Youtube className="h-4 w-4" />
-                </a>
-              </Button>
-            )}
+
             {session && !isSubscribed && subscriberId && (
               <Button onClick={handleSubscribe}>Subscribe</Button>
             )}

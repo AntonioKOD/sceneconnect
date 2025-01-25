@@ -42,10 +42,6 @@ export function CreatorProfileUpdate({ user }: CreatorProfileUpdateProps) {
             <Label htmlFor="instagram">Instagram</Label>
             <Input id="instagram" name="instagram" defaultValue={user.instagram} />
           </div>
-          <div>
-            <Label htmlFor="onlyfans">OnlyFans</Label>
-            <Input id="onlyfans" name="onlyfans" defaultValue={user.onlyfans} />
-          </div>
           <button type="submit" className="w-full">
             Update Profile
           </button>
