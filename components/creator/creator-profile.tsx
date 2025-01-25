@@ -10,6 +10,7 @@ interface Creator {
 twitter?: string
 instagram?: string
  onlyfans?: string
+ 
   
 }
 

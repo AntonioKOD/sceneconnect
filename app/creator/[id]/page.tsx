@@ -11,6 +11,7 @@ interface CreatorProfile {
     twitter?: string | null
     instagram?: string | null
     onlyfans?: string | null
+    profileImage?: string | null
 }
 
 
@@ -39,7 +40,8 @@ export default function CreatorProfilePage() {
       name: profile.name,
       bio: profile.bio ?? '',
      twitter: profile.twitter ?? undefined,
-    instagram: profile.instagram ?? undefined
+    instagram: profile.instagram ?? undefined,
+    profileImage: profile.profileImage ?? undefined
     }
 
   return <CreatorProfileView creator={creator}/>
