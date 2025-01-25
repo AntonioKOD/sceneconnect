@@ -9,7 +9,7 @@ import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, Form
 import { Input } from '@/components/ui/input';
 
 const schema = z.object({
-    email: z.string().email().transform((value)=> value.trim()),
+    email: z.string().email().toLowerCase().transform((value)=> value.trim()),
     password: z
     .string()
     .min(8, { message: "Be at least 8 characters long" })
@@ -19,7 +19,7 @@ const schema = z.object({
       message: "Contain at least one special character.",
     })
     .transform((value) => value.trim()),
-    name: z.string().min(3).transform((value) => value.trim()),
+    name: z.string().min(3).toLowerCase().transform((value) => value.trim()),
 });
 
 export default function SignupPage(){

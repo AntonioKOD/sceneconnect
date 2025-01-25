@@ -12,8 +12,8 @@ import Link from "next/link";
 
 
 const schema = z.object({
-  email: z.string().email({ message: "Invalid email address" }).transform((value)=> value.trim()),
-  password: z.string().min(8, { message: "Password must be at least 8 characters long" }).transform((value)=> value.trim()),
+  identifier: z.string().min(1, { message: "Username or email is required" }).transform((value) => value.trim()),
+  password: z.string().min(8, { message: "Password must be at least 8 characters long" }).transform((value) => value.trim()),
 });
 
 export default function LoginPage() {
@@ -21,14 +21,16 @@ export default function LoginPage() {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: "",
+      identifier: '',
       password: "",
+
+
     },
   });
 
   const handleLogin = async (values: z.infer<typeof schema>) => {
     const res = await signIn("credentials", {
-      email: values.email,
+      identifier: values.identifier.toLowerCase(),
       password: values.password,
       redirect: false,
     });
@@ -51,12 +53,12 @@ export default function LoginPage() {
             {/* Email Field */}
             <FormField
               control={form.control}
-              name="email"
+              name="identifier"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Username or Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="name@example.com" {...field} />
+                    <Input placeholder="Enter username or email" {...field}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

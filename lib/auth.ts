@@ -15,16 +15,21 @@ const prisma = new PrismaClient();
       name: "Credentials",
       type: "credentials",
       credentials: {
-        email: { label: "Email", type: "text" },
+        identifier: { label: "Username or Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: Record<string, string> | undefined, req: Pick<RequestInternal, "query" | "body" | "headers" | "method">) {
-        if (!credentials?.email || !credentials?.password) {
+        if (!credentials?.identifier || !credentials?.password) {
           throw new Error("Email and password are required");
         }
 
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+        const user = await prisma.user.findFirst({
+          where: {
+            OR: [
+              {email: credentials.identifier},
+              {name: credentials.identifier}
+            ]
+          }
         });
 
         if (!user) throw new Error("No user found with the provided email");
