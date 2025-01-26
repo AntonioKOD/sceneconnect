@@ -285,4 +285,30 @@ export async function createScene(formData: FormData): Promise<void> {
     })
   }
 
+
+  interface Subscriber {
+    id: string
+    name: string
+
+}
+  export async function getSubscribers(creatorId: string): Promise<Subscriber[]>{
+    const subscribers =  await prisma.subscription.findMany({
+      where: {
+        creatorId,
+      },
+      include: {
+        user: {select: {name: true}}
+
+      }
+    })
+
+    return subscribers.map(subscriber => ({ id: subscriber.userId, name: subscriber.user.name }))
+
+    
+
+
+  
+  }
+
+  
   

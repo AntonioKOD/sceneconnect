@@ -113,6 +113,7 @@ model Comment {
   user      User     @relation(fields: [userId], references: [id])
   scene     Scene    @relation(fields: [sceneId], references: [id])
 }
+
 model Subscription {
   id         String   @id @default(cuid())
   userId     String
