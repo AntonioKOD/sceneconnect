@@ -38,7 +38,8 @@ export default function SearchBar() {
 
   // Handle clicking a search result
   const handleResultClick = (id: string) => {
-    router.push(`/creator/${id}`); // Navigate to the profile page
+    router.push(`/creator/${id}`);
+    setResults([]) // Navigate to the profile page
   };
 
   return (

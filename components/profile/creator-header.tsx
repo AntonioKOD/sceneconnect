@@ -13,6 +13,7 @@ import { setProfilePicture } from "@/app/actions";
 
 interface CreatorHeaderProps {
   user: {
+    id: string
     name: string
       twitter?: string
       instagram?: string
@@ -84,7 +85,7 @@ export function CreatorHeader({ user }: CreatorHeaderProps) {
             </a>
           </Button>
         )}
-        <Link href='/subscribers'><Button>Subscribers</Button></Link>
+        <Link href={`/profile/${user.id}/subscribers`}><Button>Subscribers</Button></Link>
       </div>
     </div>
   )
